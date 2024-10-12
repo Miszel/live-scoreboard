@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @Builder
 public class ScoreBoard {
     private static final int INITIAL_SCORE = 0;
+    public static final String CANNOT_UPDATE_MATCH_WHICH_HAVE_NOT_STARTED = "Cannot update match which have not started";
     private final Map<String, MatchScore> matches = new HashMap<>();
 
     public void startMatch(String teamHome, String teamAway) {
@@ -32,6 +33,9 @@ public class ScoreBoard {
 
 
     public void update(String teamHome, String teamAway, int goalsHome, int goalsAway) {
+        if (!matches.containsKey(MatchScore.id(teamHome, teamAway))) {
+            throw new IllegalStateException(CANNOT_UPDATE_MATCH_WHICH_HAVE_NOT_STARTED);
+        }
         final MatchScore matchScore = MatchScore.builder()
                 .homeTeam(teamHome)
                 .awayTeam(teamAway)

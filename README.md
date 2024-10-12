@@ -15,7 +15,7 @@ one match from another we need to assume that there is additional input informat
    - get()
    - result: \
      `1. Sweden 0 - Norway 0`
-2. Existing score can be updated
+2. Existing score can be updated [DONE]
    - start(Sweden, Norway)
    - update(Sweden, Norway, 1, 0)
    - get()
@@ -95,4 +95,6 @@ one match from another we need to assume that there is additional input informat
       `5. Germany 2 - France 2`
 
 
-
+Candidates to be a separate scenario:
+- update is changing score by reducing goals; update result should be success
+- update time does not have impact on match order
