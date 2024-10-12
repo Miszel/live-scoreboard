@@ -14,7 +14,7 @@ public class ScoreBoard {
     private final Map<String, MatchScore> matches = new HashMap<>();
 
     public void startMatch(String teamHome, String teamAway) {
-        MatchScore matchScore = MatchScore.builder()
+        final MatchScore matchScore = MatchScore.builder()
                 .homeTeam(teamHome)
                 .awayTeam(teamAway)
                 .homeScore(INITIAL_SCORE)
@@ -24,11 +24,20 @@ public class ScoreBoard {
     }
 
     public String getMatches() {
-        AtomicInteger index = new AtomicInteger(1);
+        final AtomicInteger index = new AtomicInteger(1);
         return matches.values().stream()
                 .map(m -> index.getAndIncrement() + ". " + m.toString())
                 .collect(Collectors.joining("\n"));
     }
 
 
+    public void update(String teamHome, String teamAway, int goalsHome, int goalsAway) {
+        final MatchScore matchScore = MatchScore.builder()
+                .homeTeam(teamHome)
+                .awayTeam(teamAway)
+                .homeScore(goalsHome)
+                .awayScore(goalsAway)
+                .build();
+        matches.put(matchScore.id(), matchScore);
+    }
 }

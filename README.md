@@ -6,9 +6,11 @@ one match from another we need to assume that there is additional input informat
 - Scoreboard is not tracking if score changes makes sense, update gives absolute result, so it can be made on real 
   score change, or it could be score correction
 - Goals should be 0 or positive integer number
+- Tested scenarios are not very complex so initial setup for particular tests can be done as a sequence of operations
+- Match which is not started cannot be updated
 
 ## Specification by example
-1. After adding a match, it is visible on scoreboard and is preceded by index
+1. After adding a match, it is visible on scoreboard and is preceded by index [DONE]
    - start(Sweden, Norway) 
    - get()
    - result: \
@@ -19,14 +21,21 @@ one match from another we need to assume that there is additional input informat
    - get()
    - result: \
      `1. Sweden 1 - Norway 0`
-3. Match cannot be started multiple times
+3. Match which is not started cannot be updated
+    - start(Sweden, Norway)
+    - update(Denmark, Belgium, 0, 1)
+    - result: exception
+    - get()
+    - result: \
+      `1. Sweden 0 - Norway 0`
+4. Match cannot be started multiple times
    - start(Sweden, Norway)
    - start(Sweden, Norway)
    result: exception is thrown
    - get()
    - result: \
      `1. Sweden 0 - Norway 0`
-4. Matches are sorted by number of total goals
+5. Matches are sorted by number of total goals
    - start(Sweden, Norway)
    - start(Denmark, Belgium)
    - update(Sweden, Norway, 1, 0)
@@ -34,39 +43,39 @@ one match from another we need to assume that there is additional input informat
    - result: \
      `1. Sweden 1 - Norway 0` \
      `2. Denmark 0 - Belgium 0` 
-5. Matches are with the same total goals are sorted by start time, later started precedes earlier started
+6. Matches are with the same total goals are sorted by start time, later started precedes earlier started
    - start(Sweden, Norway)
    - start(Denmark, Belgium)
    - get()
    - result: \
      `1. Denmark 0 - Belgium 0` \
      `2. Sweden 0 - Norway 0`
-6. Finished match is removed from the board
+7. Finished match is removed from the board
    - start(Sweden, Norway)
    - start(Denmark, Belgium)
    - finish(Denmark, Belgium)
    - get()
    - result: \
      `1. Sweden 0 - Norway 0`
-7. Cannot finish match which is not on score board
+8. Cannot finish match which is not on score board
     - start(Sweden, Norway)
     - finish(Denmark, Belgium)
     - result: exception is thrown 
     - get()
     - result: \
       `1. Sweden 0 - Norway 0`
-8. Board is empty when no match is started
+9. Board is empty when no match is started
    - get()
    - result: \
      ``
-9. Board does not accept values which are not 0 or positive integer
-   - start(Sweden, Norway)
-   - update(Sweden, Norway, -1, 0)
-   - result: exception
-   - get()
-   - result: \
-    `1. Sweden 0 - Norway 0`
-10. Scenario from specification
+10. Board does not accept values which are not 0 or positive integer
+    - start(Sweden, Norway)
+    - update(Sweden, Norway, -1, 0)
+    - result: exception
+    - get()
+    - result: \
+     `1. Sweden 0 - Norway 0`
+11. Scenario from specification
     - start(Mexico, Canada)
     - start(Spain, Brazil)
     - start(Germany, France)
@@ -78,7 +87,7 @@ one match from another we need to assume that there is additional input informat
     - start(Uruguay, Italy, 6, 6)
     - start(Argentina, Australia, 3, 1)
     - get()
-      - result: \
+    - result: \
       `1. Uruguay 6 - Italy 6` \
       `2. Spain 10 - Brazil 2` \
       `3. Mexico 0 - Canada 5` \
