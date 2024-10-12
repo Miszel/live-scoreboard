@@ -9,6 +9,9 @@ one match from another we need to assume that there is additional input informat
 - Tested scenarios are not very complex so initial setup for particular tests can be done as a sequence of operations
 - Match which is not started cannot be updated
 
+## To be considered
+- could match be created if both home and away team has the same name?
+
 ## Specification by example
 1. After adding a match, it is visible on scoreboard and is preceded by index [DONE]
    - start(Sweden, Norway) 
@@ -21,7 +24,7 @@ one match from another we need to assume that there is additional input informat
    - get()
    - result: \
      `1. Sweden 1 - Norway 0`
-3. Match which is not started cannot be updated
+3. Match which is not started cannot be updated [DONE]
     - start(Sweden, Norway)
     - update(Denmark, Belgium, 0, 1)
     - result: exception
@@ -98,3 +101,4 @@ one match from another we need to assume that there is additional input informat
 Candidates to be a separate scenario:
 - update is changing score by reducing goals; update result should be success
 - update time does not have impact on match order
+- when we try to start match multiple times, start time should not be changed

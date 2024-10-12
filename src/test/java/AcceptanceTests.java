@@ -60,4 +60,20 @@ public class AcceptanceTests {
         assertTrue(exception.getMessage().contains(expectedMessage));
         Assertions.assertEquals(expectedBoard, scoreBoard.getMatches());
     }
+
+    @Test
+    void match_cannot_be_started_multiple_times() {
+        String teamHome = "Sweden";
+        String teamAway = "Norway";
+
+        String expectedMessage = "Cannot start match which is already started";
+        String expectedBoard = "1. Sweden 0 - Norway 0";
+
+        scoreBoard.startMatch(teamHome, teamAway);
+        Exception exception = assertThrows(IllegalStateException.class,
+                () -> scoreBoard.startMatch(teamHome, teamAway));
+
+        assertTrue(exception.getMessage().contains(expectedMessage));
+        Assertions.assertEquals(expectedBoard, scoreBoard.getMatches());
+    }
 }

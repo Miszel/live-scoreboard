@@ -12,9 +12,14 @@ import java.util.stream.Collectors;
 public class ScoreBoard {
     private static final int INITIAL_SCORE = 0;
     public static final String CANNOT_UPDATE_MATCH_WHICH_HAVE_NOT_STARTED = "Cannot update match which have not started";
+    public static final String CANNOT_START_MATCH_WHICH_IS_ALREADY_STARTED = "Cannot start match which is already started";
+
     private final Map<String, MatchScore> matches = new HashMap<>();
 
     public void startMatch(String teamHome, String teamAway) {
+        if (matches.containsKey(MatchScore.id(teamHome, teamAway))) {
+            throw new IllegalStateException(CANNOT_START_MATCH_WHICH_IS_ALREADY_STARTED);
+        }
         final MatchScore matchScore = MatchScore.builder()
                 .homeTeam(teamHome)
                 .awayTeam(teamAway)
