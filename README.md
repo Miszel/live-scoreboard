@@ -10,7 +10,7 @@ one match from another we need to assume that there is additional input informat
 - Match which is not started cannot be updated
 
 ## To be considered
-- could match be created if both home and away team has the same name?
+- could a match be created if both home and away team has the same name?
 - what if board formatting will change? could we reduce impact which it could have on tests?
 
 ## Specification by example
@@ -72,14 +72,14 @@ one match from another we need to assume that there is additional input informat
    - get()
    - result: \
      ``
-10. Board does not accept values which are not 0 or positive integer
+10. Board does not accept values which are not 0 or positive integer [DONE]
     - start(Sweden, Norway)
     - update(Sweden, Norway, -1, 0)
     - result: exception
     - get()
     - result: \
      `1. Sweden 0 - Norway 0`
-11. Scenario from specification
+11. Scenario from specification [DONE]
     - start(Mexico, Canada)
     - start(Spain, Brazil)
     - start(Germany, France)
