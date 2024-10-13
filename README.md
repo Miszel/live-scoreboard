@@ -1,3 +1,27 @@
+# Live Football World Cup ScoreBoard Library
+The Live Football World Cup ScoreBoard library allows you to manage and track live football matches. It provides functionality to start, update, and finish matches, as well as generate a summary of ongoing matches ordered by their total score.
+
+## How to Build the JAR
+Run the following command to build the JAR:
+```bash
+gradle build
+```
+or
+```bash
+./gradlew build
+```
+The JAR file will be generated in the `build/libs`
+
+## How to Run Tests
+```bash
+./gradlew test
+```
+
+## Contact
+For any questions, please contact:
+- Michał Kowalik 
+- Email: michal.kowalik.82@gmail.com
+
 ## Assumptions
 - Specification describes score update operation in the way that it takes pair of absolute scores. To differentiate 
 one match from another we need to assume that there is additional input information. It could be a pair of team names.

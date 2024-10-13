@@ -4,6 +4,7 @@ plugins {
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
+description = "Live Football World Cup Score Board"
 
 repositories {
     mavenCentral()
@@ -18,4 +19,13 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.jar {
+    manifest {
+        attributes(
+            "Implementation-Title" to project.name,
+            "Implementation-Version" to project.version
+        )
+    }
 }

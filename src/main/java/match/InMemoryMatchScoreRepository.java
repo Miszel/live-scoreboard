@@ -2,7 +2,7 @@ package match;
 
 import java.util.*;
 
-public class InMemoryMatchScoreRepository implements MatchScoreRepository {
+public final class InMemoryMatchScoreRepository implements MatchScoreRepository {
     private final Map<String, MatchScore> matches = new HashMap<>();
 
     @Override
