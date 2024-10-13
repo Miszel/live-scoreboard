@@ -66,4 +66,8 @@ public class ScoreBoard {
                 .build();
         addMatchScore(matchScore);
     }
+
+    public void finish(String teamHome, String teamAway) {
+        matches.remove(MatchScore.id(teamHome, teamAway));
+    }
 }

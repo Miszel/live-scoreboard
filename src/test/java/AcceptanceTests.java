@@ -111,4 +111,22 @@ public class AcceptanceTests {
         Assertions.assertEquals(expectedBoard, result);
     }
 
+    @Test
+    void finished_match_is_removed_from_the_board() {
+        String teamHome = "Sweden";
+        String teamAway = "Norway";
+        String teamHome2 = "Denmark";
+        String teamAway2 = "Belgium";
+
+        scoreBoard.startMatch(teamHome, teamAway);
+        scoreBoard.startMatch(teamHome2, teamAway2);
+
+        String expectedBoard = "1. Sweden 0 - Norway 0";
+
+        scoreBoard.finish(teamHome2, teamAway2);
+
+        String result = scoreBoard.getMatches();
+        Assertions.assertEquals(expectedBoard, result);
+    }
+
 }

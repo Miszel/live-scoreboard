@@ -47,14 +47,14 @@ one match from another we need to assume that there is additional input informat
    - result: \
      `1. Sweden 1 - Norway 0` \
      `2. Denmark 0 - Belgium 0` 
-6. Matches are with the same total goals are sorted by start time, later started precedes earlier started
+6. Matches are with the same total goals are sorted by start time, later started precedes earlier started [DONE]
    - start(Sweden, Norway)
    - start(Denmark, Belgium)
    - get()
    - result: \
      `1. Denmark 0 - Belgium 0` \
      `2. Sweden 0 - Norway 0`
-7. Finished match is removed from the board
+7. Finished match is removed from the board [DONE]
    - start(Sweden, Norway)
    - start(Denmark, Belgium)
    - finish(Denmark, Belgium)
