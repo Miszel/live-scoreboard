@@ -3,7 +3,7 @@ package match;
 import lombok.Builder;
 
 @Builder
-public record MatchScore(String homeTeam, String awayTeam, int homeScore, int awayScore){
+public record MatchScore(String homeTeam, String awayTeam, int homeScore, int awayScore, long sequenceNumber){
 
     @Override
     public String toString() {

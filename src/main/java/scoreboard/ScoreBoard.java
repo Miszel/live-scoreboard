@@ -2,10 +2,9 @@ package scoreboard;
 
 import lombok.Builder;
 import match.MatchScore;
+import match.MatchSequence;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -26,6 +25,7 @@ public class ScoreBoard {
                 .awayTeam(teamAway)
                 .homeScore(INITIAL_SCORE)
                 .awayScore(INITIAL_SCORE)
+                .sequenceNumber(MatchSequence.generateSequenceNumber())
                 .build();
         addMatchScore(matchScore);
     }
@@ -36,15 +36,25 @@ public class ScoreBoard {
 
     public String getMatches() {
         final AtomicInteger index = new AtomicInteger(1);
-        return matches.values().stream()
-                .sorted(Comparator.comparingInt((MatchScore m) -> m.homeScore() + m.awayScore()).reversed())
+        return getSortedMatchScores().stream()
                 .map(m -> index.getAndIncrement() + ". " + m)
                 .collect(Collectors.joining("\n"));
     }
 
+    private List<MatchScore> getSortedMatchScores() {
+        final Comparator<MatchScore> totalScoreComparator = Comparator
+                .comparingInt((MatchScore m) -> m.homeScore() + m.awayScore()).reversed();
+        final Comparator<MatchScore> startTimeComparator = Comparator
+                .comparingLong(MatchScore::sequenceNumber).reversed();
+        return matches.values().stream()
+                .sorted(totalScoreComparator.thenComparing(startTimeComparator))
+                .toList();
+    }
+
 
     public void update(String teamHome, String teamAway, int goalsHome, int goalsAway) {
-        if (!matches.containsKey(MatchScore.id(teamHome, teamAway))) {
+        final String id = MatchScore.id(teamHome, teamAway);
+        if (!matches.containsKey(id)) {
             throw new IllegalStateException(CANNOT_UPDATE_MATCH_WHICH_HAVE_NOT_STARTED);
         }
         final MatchScore matchScore = MatchScore.builder()
@@ -52,6 +62,7 @@ public class ScoreBoard {
                 .awayTeam(teamAway)
                 .homeScore(goalsHome)
                 .awayScore(goalsAway)
+                .sequenceNumber(matches.get(id).sequenceNumber())
                 .build();
         addMatchScore(matchScore);
     }

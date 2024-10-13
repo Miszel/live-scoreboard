@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AcceptanceTests {
     ScoreBoard scoreBoard = ScoreBoard.builder().build();
 
-
     @Test
     void scoreboard_should_display_unfinished_matches() {
         //given
@@ -89,6 +88,23 @@ public class AcceptanceTests {
         scoreBoard.update(teamHome, teamAway, 1, 0);
 
         String expectedBoard = "1. Sweden 1 - Norway 0\n2. Denmark 0 - Belgium 0";
+
+        String result = scoreBoard.getMatches();
+
+        Assertions.assertEquals(expectedBoard, result);
+    }
+
+    @Test
+    void matches_with_the_same_total_goals_are_sorted_by_start_time() {
+        String teamHome = "Sweden";
+        String teamAway = "Norway";
+        String teamHome2 = "Denmark";
+        String teamAway2 = "Belgium";
+
+        scoreBoard.startMatch(teamHome, teamAway);
+        scoreBoard.startMatch(teamHome2, teamAway2);
+
+        String expectedBoard = "1. Denmark 0 - Belgium 0\n2. Sweden 0 - Norway 0";
 
         String result = scoreBoard.getMatches();
 
