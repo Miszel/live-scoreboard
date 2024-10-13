@@ -3,6 +3,7 @@ package scoreboard;
 import lombok.Builder;
 import match.MatchScore;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,13 +27,18 @@ public class ScoreBoard {
                 .homeScore(INITIAL_SCORE)
                 .awayScore(INITIAL_SCORE)
                 .build();
+        addMatchScore(matchScore);
+    }
+
+    private void addMatchScore(MatchScore matchScore) {
         matches.put(matchScore.id(), matchScore);
     }
 
     public String getMatches() {
         final AtomicInteger index = new AtomicInteger(1);
         return matches.values().stream()
-                .map(m -> index.getAndIncrement() + ". " + m.toString())
+                .sorted(Comparator.comparingInt((MatchScore m) -> m.homeScore() + m.awayScore()).reversed())
+                .map(m -> index.getAndIncrement() + ". " + m)
                 .collect(Collectors.joining("\n"));
     }
 
@@ -47,6 +53,6 @@ public class ScoreBoard {
                 .homeScore(goalsHome)
                 .awayScore(goalsAway)
                 .build();
-        matches.put(matchScore.id(), matchScore);
+        addMatchScore(matchScore);
     }
 }

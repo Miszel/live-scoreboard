@@ -11,6 +11,7 @@ one match from another we need to assume that there is additional input informat
 
 ## To be considered
 - could match be created if both home and away team has the same name?
+- what if board formatting will change? could we reduce impact which it could have on tests?
 
 ## Specification by example
 1. After adding a match, it is visible on scoreboard and is preceded by index [DONE]
@@ -31,14 +32,14 @@ one match from another we need to assume that there is additional input informat
     - get()
     - result: \
       `1. Sweden 0 - Norway 0`
-4. Match cannot be started multiple times
+4. Match cannot be started multiple times [DONE]
    - start(Sweden, Norway)
    - start(Sweden, Norway)
    result: exception is thrown
    - get()
    - result: \
      `1. Sweden 0 - Norway 0`
-5. Matches are sorted by number of total goals
+5. Matches are sorted by number of total goals [DONE]
    - start(Sweden, Norway)
    - start(Denmark, Belgium)
    - update(Sweden, Norway, 1, 0)

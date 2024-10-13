@@ -76,4 +76,23 @@ public class AcceptanceTests {
         assertTrue(exception.getMessage().contains(expectedMessage));
         Assertions.assertEquals(expectedBoard, scoreBoard.getMatches());
     }
+
+    @Test
+    void matches_should_be_sorted_by_total_goals() {
+        String teamHome = "Sweden";
+        String teamAway = "Norway";
+        String teamHome2 = "Denmark";
+        String teamAway2 = "Belgium";
+
+        scoreBoard.startMatch(teamHome, teamAway);
+        scoreBoard.startMatch(teamHome2, teamAway2);
+        scoreBoard.update(teamHome, teamAway, 1, 0);
+
+        String expectedBoard = "1. Sweden 1 - Norway 0\n2. Denmark 0 - Belgium 0";
+
+        String result = scoreBoard.getMatches();
+
+        Assertions.assertEquals(expectedBoard, result);
+    }
+
 }
