@@ -152,4 +152,53 @@ public class AcceptanceTests {
         Assertions.assertEquals("", scoreBoard.getMatches());
     }
 
+    @Test
+    void board_does_not_accept_values_which_are_not_zero_or_positive_integer() {
+        //given
+        String teamHome = "Sweden";
+        String teamAway = "Norway";
+
+        scoreBoard.startMatch(teamHome, teamAway);
+        String expectedBoard = "1. Sweden 0 - Norway 0";
+
+        //when
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () -> scoreBoard.update(teamHome, teamAway, -1, 0));
+        Exception exception2 = assertThrows(IllegalArgumentException.class,
+                () -> scoreBoard.update(teamHome, teamAway, 0, -3));
+        String expectedMessage = "Goals cannot be negative";
+
+        //then
+        assertTrue(exception.getMessage().contains(expectedMessage));
+        assertTrue(exception2.getMessage().contains(expectedMessage));
+        Assertions.assertEquals(expectedBoard, scoreBoard.getMatches());
+    }
+
+    @Test
+    void combined_scenario_from_the_specification() {
+        scoreBoard.startMatch("Mexico", "Canada");
+        scoreBoard.startMatch("Spain", "Brazil");
+        scoreBoard.startMatch("Germany", "France");
+        scoreBoard.startMatch("Uruguay", "Italy");
+        scoreBoard.startMatch("Argentina", "Australia");
+        scoreBoard.update("Mexico", "Canada", 0, 5);
+        scoreBoard.update("Spain", "Brazil", 10, 2);
+        scoreBoard.update("Germany", "France", 2, 2);
+        scoreBoard.update("Uruguay", "Italy", 6, 6);
+        scoreBoard.update("Argentina", "Australia", 3, 1);
+
+        String expectedBoard = """
+                        1. Uruguay 6 - Italy 6
+                        2. Spain 10 - Brazil 2
+                        3. Mexico 0 - Canada 5
+                        4. Argentina 3 - Australia 1
+                        5. Germany 2 - France 2""";
+
+        String result = scoreBoard.getMatches();
+
+        Assertions.assertEquals(expectedBoard, result);
+    }
+
+
+
 }

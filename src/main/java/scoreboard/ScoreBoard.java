@@ -14,6 +14,7 @@ public class ScoreBoard {
     public static final String CANNOT_UPDATE_MATCH_WHICH_HAVE_NOT_STARTED = "Cannot update match which have not started";
     public static final String CANNOT_START_MATCH_WHICH_IS_ALREADY_STARTED = "Cannot start match which is already started";
     public static final String CANNOT_FINISH_MATCH_WHICH_WAS_NOT_STARTED = "Cannot finish match which was not started";
+    public static final String GOALS_CANNOT_BE_NEGATIVE = "Goals cannot be negative";
 
     private final Map<String, MatchScore> matches = new HashMap<>();
 
@@ -57,6 +58,9 @@ public class ScoreBoard {
         final String id = MatchScore.id(teamHome, teamAway);
         if (!matches.containsKey(id)) {
             throw new IllegalStateException(CANNOT_UPDATE_MATCH_WHICH_HAVE_NOT_STARTED);
+        }
+        if (goalsHome < 0 || goalsAway < 0) {
+            throw new IllegalArgumentException(GOALS_CANNOT_BE_NEGATIVE);
         }
         final MatchScore matchScore = MatchScore.builder()
                 .homeTeam(teamHome)
