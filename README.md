@@ -12,6 +12,8 @@ one match from another we need to assume that there is additional input informat
 ## To be considered
 - could a match be created if both home and away team has the same name?
 - what if board formatting will change? could we reduce impact which it could have on tests?
+- team name should not be null
+- possibility to provide external repository implementation [DONE]
 
 ## Specification by example
 1. After adding a match, it is visible on scoreboard and is preceded by index [DONE]

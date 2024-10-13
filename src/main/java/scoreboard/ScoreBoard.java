@@ -1,7 +1,8 @@
 package scoreboard;
 
-import match.MatchScoreRepository;
+import match.InMemoryMatchScoreRepository;
 import match.MatchScore;
+import match.MatchScoreRepository;
 import match.MatchSequence;
 
 import java.util.*;
@@ -24,6 +25,10 @@ public class ScoreBoard implements Board {
 
     public ScoreBoard(MatchScoreRepository repository) {
         this.repository = repository;
+    }
+
+    public ScoreBoard() {
+        this(new InMemoryMatchScoreRepository());
     }
 
     @Override

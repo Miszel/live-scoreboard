@@ -1,27 +1,15 @@
 package match;
 
-import java.util.*;
+import java.util.Collection;
 
-public class MatchScoreRepository {
-    private final Map<String, MatchScore> matches = new HashMap<>();
+public interface MatchScoreRepository {
+    boolean contains(String id);
 
-    public boolean contains(String id) {
-        return matches.containsKey(id);
-    }
+    void add(MatchScore matchScore);
 
-    public void add(MatchScore matchScore) {
-        matches.put(matchScore.id(), matchScore);
-    }
+    MatchScore find(String id);
 
-    public MatchScore find(String id) {
-        return matches.get(id);
-    }
+    void delete(String id);
 
-    public void delete(String id) {
-        matches.remove(id);
-    }
-
-    public Collection<MatchScore> findAll() {
-        return matches.values();
-    }
+    Collection<MatchScore> findAll();
 }

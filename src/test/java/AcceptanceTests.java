@@ -1,13 +1,12 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import match.MatchScoreRepository;
 import scoreboard.ScoreBoard;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AcceptanceTests {
-    ScoreBoard scoreBoard = new ScoreBoard(new MatchScoreRepository());
+    ScoreBoard scoreBoard = new ScoreBoard();
 
     @Test
     void scoreboard_should_display_unfinished_matches() {
