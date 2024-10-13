@@ -129,4 +129,27 @@ public class AcceptanceTests {
         Assertions.assertEquals(expectedBoard, result);
     }
 
+    @Test
+    void cannot_finish_match_which_is_not_on_scoreboard() {
+        String teamHome = "Sweden";
+        String teamAway = "Norway";
+        String teamHome2 = "Denmark";
+        String teamAway2 = "Belgium";
+
+        scoreBoard.startMatch(teamHome, teamAway);
+
+        String expectedMessage = "Cannot finish match which was not started";
+
+        Exception exception = assertThrows(IllegalStateException.class,
+                () -> scoreBoard.finish(teamHome2, teamAway2));
+
+        assertTrue(exception.getMessage().contains(expectedMessage));
+        Assertions.assertEquals("1. Sweden 0 - Norway 0", scoreBoard.getMatches());
+    }
+
+    @Test
+    void board_is_empty_when_no_match_is_started() {
+        Assertions.assertEquals("", scoreBoard.getMatches());
+    }
+
 }

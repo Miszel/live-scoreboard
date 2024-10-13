@@ -13,6 +13,7 @@ public class ScoreBoard {
     private static final int INITIAL_SCORE = 0;
     public static final String CANNOT_UPDATE_MATCH_WHICH_HAVE_NOT_STARTED = "Cannot update match which have not started";
     public static final String CANNOT_START_MATCH_WHICH_IS_ALREADY_STARTED = "Cannot start match which is already started";
+    public static final String CANNOT_FINISH_MATCH_WHICH_WAS_NOT_STARTED = "Cannot finish match which was not started";
 
     private final Map<String, MatchScore> matches = new HashMap<>();
 
@@ -68,6 +69,10 @@ public class ScoreBoard {
     }
 
     public void finish(String teamHome, String teamAway) {
-        matches.remove(MatchScore.id(teamHome, teamAway));
+        final String id = MatchScore.id(teamHome, teamAway);
+        if (!matches.containsKey(id)) {
+            throw new IllegalStateException(CANNOT_FINISH_MATCH_WHICH_WAS_NOT_STARTED);
+        }
+        matches.remove(id);
     }
 }

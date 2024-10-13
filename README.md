@@ -61,14 +61,14 @@ one match from another we need to assume that there is additional input informat
    - get()
    - result: \
      `1. Sweden 0 - Norway 0`
-8. Cannot finish match which is not on score board
+8. Cannot finish match which is not on score board [DONE]
     - start(Sweden, Norway)
     - finish(Denmark, Belgium)
     - result: exception is thrown 
     - get()
     - result: \
       `1. Sweden 0 - Norway 0`
-9. Board is empty when no match is started
+9. Board is empty when no match is started [DONE]
    - get()
    - result: \
      ``
