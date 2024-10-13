@@ -23,6 +23,8 @@ For any questions, please contact:
 - Email: michal.kowalik.82@gmail.com
 
 ## Assumptions
+- The main assumption is that summary which is returned from the library is a formatted string. It is not stated in the 
+  task description, but that was my original understanding.
 - Specification describes score update operation in the way that it takes pair of absolute scores. To differentiate 
 one match from another we need to assume that there is additional input information. It could be a pair of team names.
 - If two teams started the match, and it is not finished another start operation will result in an exception and 
