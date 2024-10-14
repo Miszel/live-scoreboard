@@ -24,7 +24,8 @@ public class LiveScoreBoard {
     }
 
     public void startMatch(String teamHome, String teamAway) {
-        MatchScore matchScore = matchScoreCreator.createMatch(teamHome, teamAway);
+        validateTeams(teamHome, teamAway);
+        MatchScore matchScore = matchScoreCreator.createMatch(teamHome.trim(), teamAway.trim());
         board.startMatch(matchScore);
     }
 
@@ -45,22 +46,32 @@ public class LiveScoreBoard {
     }
 
     public void update(String teamHome, String teamAway, int goalsHome, int goalsAway) {
-        final String id = MatchScore.id(teamHome, teamAway);
+        validateTeams(teamHome, teamAway);
+        final String trimmedHomeTeam = teamHome.trim();
+        final String trimmedAwayTeam = teamAway.trim();
 
-        Long sequence = this.board.getSequence(id);
+        final String id = MatchScore.id(trimmedHomeTeam, trimmedAwayTeam);
         final MatchScore matchScore = MatchScore.builder()
-                .homeTeam(teamHome)
-                .awayTeam(teamAway)
+                .homeTeam(trimmedHomeTeam)
+                .awayTeam(trimmedAwayTeam)
                 .homeScore(goalsHome)
                 .awayScore(goalsAway)
-                .sequenceNumber(sequence)
+                .sequenceNumber(this.board.getSequence(id))
                 .build();
 
         this.board.update(matchScore);
     }
 
+    private static void validateTeams(String teamHome, String teamAway) {
+        if (teamHome == null || teamHome.trim().isEmpty()
+                || teamAway == null || teamAway.trim().isEmpty()
+                || teamAway.equals(teamHome)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public void finish(String teamHome, String teamAway) {
-        final String id = MatchScore.id(teamHome, teamAway);
+        final String id = MatchScore.id(teamHome.trim(), teamAway.trim());
         this.board.finish(id);
     }
 }

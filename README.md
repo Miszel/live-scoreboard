@@ -36,15 +36,16 @@ one match from another we need to assume that there is additional input informat
 - Match which is not started cannot be updated
 
 ## To be considered
-- could a match be created if both home and away team has the same name?
+- could a match be created if both home and away team has the same name? 
+  - throw exception on the same team names [DONE]
 - what if board formatting will change? could we reduce impact which it could have on tests?
   - this could be resolved by refactoring tests to test values from collection of match data. There could be 
     additional test which tests formatting of result [DONE]
-- team name should not be null
+- team name should not be null (argument validation) [DONE]
 - possibility to provide external repository implementation [DONE]
 - custom Exceptions
-- trim team names
-- test if name is empty string
+- trim team names - questionable, but assumed that should be done. [DONE]
+- test if name is empty string [DONE]
 
 ## Specification by example
 1. After adding a match, it is visible on scoreboard and is preceded by index [DONE]
@@ -131,8 +132,3 @@ one match from another we need to assume that there is additional input informat
       `4. Argentina 3 - Australia 1` \
       `5. Germany 2 - France 2`
 
-
-Candidates to be a separate scenario:
-- update is changing score by reducing goals; update result should be success
-- update time does not have impact on match order
-- when we try to start match multiple times, start time should not be changed
