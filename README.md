@@ -1,6 +1,8 @@
 # Live Football World Cup ScoreBoard Library
 The Live Football World Cup ScoreBoard library allows you to manage and track live football matches. It provides functionality to start, update, and finish matches, as well as generate a summary of ongoing matches ordered by their total score.
 
+## Prerequisites
+Java 21+
 ## How to Build the JAR
 Run the following command to build the JAR:
 ```bash
