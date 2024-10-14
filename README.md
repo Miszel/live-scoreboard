@@ -19,10 +19,40 @@ The JAR file will be generated in the `build/libs`
 ./gradlew test
 ```
 
+## Using JAR
+1. Build the library and generate the JAR file.
+2. Add the JAR file to your project's classpath.
+
+### Sample Usage
+Sample client code:
+```java
+package org.example;
+
+import scoreboard.LiveScoreBoard;
+
+public class Main {
+public static void main(String[] args) {
+System.out.println("Hello world!");
+
+        LiveScoreBoard scoreBoard = new LiveScoreBoard();
+
+        scoreBoard.startMatch("Poland", "Greece");
+        System.out.println(scoreBoard.getMatches());
+        scoreBoard.startMatch("England", "Spain");
+        System.out.println(scoreBoard.getMatches());
+        System.out.println(scoreBoard.getMatches());
+        scoreBoard.update("Poland", "Greece", 1, 1);
+        System.out.println(scoreBoard.getMatches());
+        scoreBoard.update("England", "Spain", 4, 5);
+        System.out.println(scoreBoard.getMatches());
+
+    }
+}
+```
 ## Contact
 For any questions, please contact:
 - Michał Kowalik 
-- Email: michal.kowalik.82@gmail.com
+- Email: [michal.kowalik.82@gmail.com](mailto:michal.kowalik.82@gmail.com)
 
 ## Assumptions
 - ~~The main assumption is that summary which is returned from the library is a formatted string. It is not stated in the 
@@ -133,7 +163,3 @@ one match from another we need to assume that there is additional input informat
       `3. Mexico 0 - Canada 5` \
       `4. Argentina 3 - Australia 1` \
       `5. Germany 2 - France 2`
-
-## TODO
-- add api documentation
-- verify lib
