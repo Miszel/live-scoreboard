@@ -38,8 +38,11 @@ one match from another we need to assume that there is additional input informat
 ## To be considered
 - could a match be created if both home and away team has the same name?
 - what if board formatting will change? could we reduce impact which it could have on tests?
+  - this could be resolved by refactoring tests to test values from collection of match data. There could be 
+    additional test which tests formatting of result 
 - team name should not be null
 - possibility to provide external repository implementation [DONE]
+- custom Exceptions
 
 ## Specification by example
 1. After adding a match, it is visible on scoreboard and is preceded by index [DONE]

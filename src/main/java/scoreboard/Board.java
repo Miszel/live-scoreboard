@@ -1,11 +1,17 @@
 package scoreboard;
 
+import match.MatchScore;
+
+import java.util.List;
+
 public interface Board {
-    void startMatch(String teamHome, String teamAway);
+    void startMatch(MatchScore matchScore);
 
-    String getMatches();
+    List<MatchScore> getMatches();
 
-    void update(String teamHome, String teamAway, int goalsHome, int goalsAway);
+    void update(MatchScore matchScore);
 
-    void finish(String teamHome, String teamAway);
+    void finish(String id);
+
+    Long getSequence(String id);
 }
