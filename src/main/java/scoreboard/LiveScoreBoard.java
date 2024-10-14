@@ -28,11 +28,17 @@ public class LiveScoreBoard {
         board.startMatch(matchScore);
     }
 
+    /**
+     * In original understanding of scoreboard summary, author expected that scoreboard needs to return formatted string,
+     * which has scores in separated lines
+     * @return formatted string with live scores
+     */
+    @Deprecated
     public String getMatches() {
-        return BoardFormatter.formatScoreboard(getLiveMatches());
+        return BoardFormatter.formatScoreboard(getSummary());
     }
 
-    private List<ScoreBoardLineDto> getLiveMatches() {
+    public List<ScoreBoardLineDto> getSummary() {
         return board.getMatches().stream()
                 .map(ScoreBoardLineDtoMapper::from)
                 .toList();

@@ -1,3 +1,4 @@
+import dto.BoardFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import scoreboard.LiveScoreBoard;
@@ -19,7 +20,7 @@ public class AcceptanceTests {
         String expectedBoard = "1. Sweden 0 - Norway 0";
 
         //when
-        String result = scoreBoard.getMatches();
+        String result = BoardFormatter.formatScoreboard(scoreBoard.getSummary());
 
         //then
         Assertions.assertEquals(expectedBoard, result);
@@ -38,7 +39,7 @@ public class AcceptanceTests {
         scoreBoard.update(teamHome, teamAway, 1, 0);
 
         //then
-        String result = scoreBoard.getMatches();
+        String result = BoardFormatter.formatScoreboard(scoreBoard.getSummary());
         Assertions.assertEquals(expectedBoard, result);
     }
 
@@ -57,7 +58,7 @@ public class AcceptanceTests {
 
         //then
         assertTrue(exception.getMessage().contains(expectedMessage));
-        Assertions.assertEquals(expectedBoard, scoreBoard.getMatches());
+        Assertions.assertEquals(expectedBoard, BoardFormatter.formatScoreboard(scoreBoard.getSummary()));
     }
 
     @Test
@@ -73,7 +74,7 @@ public class AcceptanceTests {
                 () -> scoreBoard.startMatch(teamHome, teamAway));
 
         assertTrue(exception.getMessage().contains(expectedMessage));
-        Assertions.assertEquals(expectedBoard, scoreBoard.getMatches());
+        Assertions.assertEquals(expectedBoard, BoardFormatter.formatScoreboard(scoreBoard.getSummary()));
     }
 
     @Test
@@ -89,7 +90,7 @@ public class AcceptanceTests {
 
         String expectedBoard = "1. Sweden 1 - Norway 0\n2. Denmark 0 - Belgium 0";
 
-        String result = scoreBoard.getMatches();
+        String result = BoardFormatter.formatScoreboard(scoreBoard.getSummary());
 
         Assertions.assertEquals(expectedBoard, result);
     }
@@ -106,7 +107,7 @@ public class AcceptanceTests {
 
         String expectedBoard = "1. Denmark 0 - Belgium 0\n2. Sweden 0 - Norway 0";
 
-        String result = scoreBoard.getMatches();
+        String result = BoardFormatter.formatScoreboard(scoreBoard.getSummary());
 
         Assertions.assertEquals(expectedBoard, result);
     }
@@ -125,7 +126,7 @@ public class AcceptanceTests {
 
         scoreBoard.finish(teamHome2, teamAway2);
 
-        String result = scoreBoard.getMatches();
+        String result = BoardFormatter.formatScoreboard(scoreBoard.getSummary());
         Assertions.assertEquals(expectedBoard, result);
     }
 
@@ -144,12 +145,13 @@ public class AcceptanceTests {
                 () -> scoreBoard.finish(teamHome2, teamAway2));
 
         assertTrue(exception.getMessage().contains(expectedMessage));
-        Assertions.assertEquals("1. Sweden 0 - Norway 0", scoreBoard.getMatches());
+        Assertions.assertEquals("1. Sweden 0 - Norway 0",
+                BoardFormatter.formatScoreboard(scoreBoard.getSummary()));
     }
 
     @Test
     void board_is_empty_when_no_match_is_started() {
-        Assertions.assertEquals("", scoreBoard.getMatches());
+        Assertions.assertEquals("", BoardFormatter.formatScoreboard(scoreBoard.getSummary()));
     }
 
     @Test
@@ -171,7 +173,7 @@ public class AcceptanceTests {
         //then
         assertTrue(exception.getMessage().contains(expectedMessage));
         assertTrue(exception2.getMessage().contains(expectedMessage));
-        Assertions.assertEquals(expectedBoard, scoreBoard.getMatches());
+        Assertions.assertEquals(expectedBoard, BoardFormatter.formatScoreboard(scoreBoard.getSummary()));
     }
 
     @Test
@@ -194,7 +196,7 @@ public class AcceptanceTests {
                         4. Argentina 3 - Australia 1
                         5. Germany 2 - France 2""";
 
-        String result = scoreBoard.getMatches();
+        String result = BoardFormatter.formatScoreboard(scoreBoard.getSummary());
 
         Assertions.assertEquals(expectedBoard, result);
     }
