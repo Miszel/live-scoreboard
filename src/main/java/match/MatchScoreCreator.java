@@ -12,4 +12,16 @@ public class MatchScoreCreator {
                 .sequenceNumber(MatchSequence.generateSequenceNumber())
                 .build();
     }
+
+    public MatchScore createMatchScore(
+            int goalsHome, int goalsAway, String homeTeam, String awayTeam, Long sequence) {
+        return MatchScore.builder()
+                .homeTeam(homeTeam)
+                .awayTeam(awayTeam)
+                .homeScore(goalsHome)
+                .awayScore(goalsAway)
+                .sequenceNumber(sequence)
+                .build();
+
+    }
 }

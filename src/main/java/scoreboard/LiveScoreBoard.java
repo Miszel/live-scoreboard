@@ -10,6 +10,9 @@ import match.MatchScoreRepository;
 
 import java.util.List;
 
+import static match.MatchValidator.validateScore;
+import static match.MatchValidator.validateTeams;
+
 public class LiveScoreBoard {
     private final Board board;
     private final MatchScoreCreator matchScoreCreator;
@@ -47,27 +50,15 @@ public class LiveScoreBoard {
 
     public void update(String teamHome, String teamAway, int goalsHome, int goalsAway) {
         validateTeams(teamHome, teamAway);
+        validateScore(goalsHome, goalsAway);
         final String trimmedHomeTeam = teamHome.trim();
         final String trimmedAwayTeam = teamAway.trim();
 
         final String id = MatchScore.id(trimmedHomeTeam, trimmedAwayTeam);
-        final MatchScore matchScore = MatchScore.builder()
-                .homeTeam(trimmedHomeTeam)
-                .awayTeam(trimmedAwayTeam)
-                .homeScore(goalsHome)
-                .awayScore(goalsAway)
-                .sequenceNumber(this.board.getSequence(id))
-                .build();
+        final MatchScore matchScore = matchScoreCreator
+                .createMatchScore(goalsHome, goalsAway, trimmedHomeTeam, trimmedAwayTeam, this.board.getSequence(id));
 
         this.board.update(matchScore);
-    }
-
-    private static void validateTeams(String teamHome, String teamAway) {
-        if (teamHome == null || teamHome.trim().isEmpty()
-                || teamAway == null || teamAway.trim().isEmpty()
-                || teamAway.equals(teamHome)) {
-            throw new IllegalArgumentException();
-        }
     }
 
     public void finish(String teamHome, String teamAway) {

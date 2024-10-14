@@ -9,7 +9,6 @@ public class ScoreBoard implements Board {
     public static final String CANNOT_UPDATE_MATCH_WHICH_HAVE_NOT_STARTED = "Cannot update match which have not started";
     public static final String CANNOT_START_MATCH_WHICH_IS_ALREADY_STARTED = "Cannot start match which is already started";
     public static final String CANNOT_FINISH_MATCH_WHICH_WAS_NOT_STARTED = "Cannot finish match which was not started";
-    public static final String GOALS_CANNOT_BE_NEGATIVE = "Goals cannot be negative";
 
     private final MatchScoreRepository repository;
 
@@ -41,14 +40,10 @@ public class ScoreBoard implements Board {
                 .toList();
     }
 
-
     @Override
     public void update(MatchScore matchScore) {
         if (matchScore.sequenceNumber() == null) {
             throw new IllegalStateException(CANNOT_UPDATE_MATCH_WHICH_HAVE_NOT_STARTED);
-        }
-        if (matchScore.homeScore() < 0 || matchScore.awayScore() < 0) {
-            throw new IllegalArgumentException(GOALS_CANNOT_BE_NEGATIVE);
         }
         repository.add(matchScore);
     }

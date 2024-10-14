@@ -134,3 +134,6 @@ one match from another we need to assume that there is additional input informat
       `4. Argentina 3 - Australia 1` \
       `5. Germany 2 - France 2`
 
+## TODO
+- add api documentation
+- verify lib
