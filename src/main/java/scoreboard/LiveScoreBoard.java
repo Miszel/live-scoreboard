@@ -1,13 +1,14 @@
 package scoreboard;
 
+import dto.BoardFormatter;
+import dto.ScoreBoardLineDto;
+import dto.ScoreBoardLineDtoMapper;
 import match.InMemoryMatchScoreRepository;
 import match.MatchScoreCreator;
 import match.MatchScore;
 import match.MatchScoreRepository;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class LiveScoreBoard {
     private final Board board;
@@ -28,15 +29,13 @@ public class LiveScoreBoard {
     }
 
     public String getMatches() {
-        final List<MatchScore> summary = board.getMatches();
-        return formatScoreboard(summary);
+        return BoardFormatter.formatScoreboard(getLiveMatches());
     }
 
-    private String formatScoreboard(List<MatchScore> sortedMatchScores) {
-        final AtomicInteger index = new AtomicInteger(1);
-        return sortedMatchScores.stream()
-                .map(m -> String.format("%d. %s", index.getAndIncrement(), m))
-                .collect(Collectors.joining("\n"));
+    private List<ScoreBoardLineDto> getLiveMatches() {
+        return board.getMatches().stream()
+                .map(ScoreBoardLineDtoMapper::from)
+                .toList();
     }
 
     public void update(String teamHome, String teamAway, int goalsHome, int goalsAway) {

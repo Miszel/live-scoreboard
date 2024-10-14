@@ -43,6 +43,8 @@ one match from another we need to assume that there is additional input informat
 - team name should not be null
 - possibility to provide external repository implementation [DONE]
 - custom Exceptions
+- trim team names
+- test if name is empty string
 
 ## Specification by example
 1. After adding a match, it is visible on scoreboard and is preceded by index [DONE]

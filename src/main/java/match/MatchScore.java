@@ -5,11 +5,6 @@ import lombok.Builder;
 @Builder
 public record MatchScore(String homeTeam, String awayTeam, int homeScore, int awayScore, Long sequenceNumber){
 
-    @Override
-    public String toString() {
-        return String.format("%s %d - %s %d", homeTeam, homeScore, awayTeam, awayScore);
-    }
-
     public String id() {
         return formatId(homeTeam, awayTeam);
     }
