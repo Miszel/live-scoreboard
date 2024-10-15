@@ -48,8 +48,8 @@ public class LiveScoreBoardTest {
         final List<ScoreBoardLineDto> summary = scoreBoard.getSummary();
 
         assertEquals(1, summary.size());
-        assertEquals("Slovakia", summary.getFirst().homeTeam());
-        assertEquals("Finland", summary.getFirst().awayTeam());
+        assertEquals("Slovakia", summary.get(0).homeTeam());
+        assertEquals("Finland", summary.get(0).awayTeam());
     }
 
     @Test
@@ -60,8 +60,8 @@ public class LiveScoreBoardTest {
 
         final List<ScoreBoardLineDto> summary = scoreBoard.getSummary();
         assertEquals(1, summary.size());
-        assertEquals("Slovakia", summary.getFirst().homeTeam());
-        assertEquals("Finland", summary.getFirst().awayTeam());
+        assertEquals("Slovakia", summary.get(0).homeTeam());
+        assertEquals("Finland", summary.get(0).awayTeam());
     }
 
     @Test
